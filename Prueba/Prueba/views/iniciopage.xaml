@@ -1,14 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <Page
-    x:Class="Prueba.views.iniciopage"
+    x:Class="Prueba.Views.InicioPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Prueba.views"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <Grid>
+    <ScrollViewer>
+        <StackPanel Padding="32" Spacing="20">
 
-    </Grid>
+            <TextBlock
+                Text="¡Bienvenido a FiestaStore!"
+                FontSize="30"
+                FontWeight="Bold"
+                Foreground="#49366B"/>
+
+            <TextBlock
+                Text="Administra los artículos para fiestas de tu negocio desde un solo lugar."
+                FontSize="16"
+                TextWrapping="Wrap"/>
+
+            <Grid ColumnSpacing="16" RowSpacing="16">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Border
+                    Grid.Column="0"
+                    Background="#E9DDF7"
+                    CornerRadius="12"
+                    Padding="20">
+                    <StackPanel Spacing="10">
+                        <FontIcon
+                            Glyph="&#xE710;"
+                            FontSize="28"
+                            Foreground="#49366B"/>
+                        <TextBlock
+                            Text="Registrar productos"
+                            FontSize="19"
+                            FontWeight="SemiBold"
+                            Foreground="#49366B"
+                            TextWrapping="Wrap"/>
+                        <TextBlock
+                            Text="Agrega nuevos artículos al inventario."
+                            TextWrapping="Wrap"
+                            Foreground="#49366B"/>
+                    </StackPanel>
+                </Border>
+
+                <Border
+                    Grid.Column="1"
+                    Background="#FBE3EE"
+                    CornerRadius="12"
+                    Padding="20">
+                    <StackPanel Spacing="10">
+                        <FontIcon
+                            Glyph="&#xE721;"
+                            FontSize="28"
+                            Foreground="#8C3F67"/>
+                        <TextBlock
+                            Text="Control de existencias"
+                            FontSize="19"
+                            FontWeight="SemiBold"
+                            Foreground="#8C3F67"
+                            TextWrapping="Wrap"/>
+                        <TextBlock
+                            Text="Consulta y actualiza las piezas disponibles."
+                            TextWrapping="Wrap"
+                            Foreground="#8C3F67"/>
+                    </StackPanel>
+                </Border>
+            </Grid>
+
+            <Border
+                Background="White"
+                CornerRadius="12"
+                Padding="22">
+                <StackPanel Spacing="8">
+                    <TextBlock
+                        Text="Primeros pasos"
+                        FontSize="20"
+                        FontWeight="SemiBold"
+                        Foreground="#49366B"/>
+
+                    <TextBlock
+                        Text="1. Entra a Registrar producto."
+                        TextWrapping="Wrap"/>
+
+                    <TextBlock
+                        Text="2. Captura los datos del artículo."
+                        TextWrapping="Wrap"/>
+
+                    <TextBlock
+                        Text="3. Pulsa Guardar producto."
+                        TextWrapping="Wrap"/>
+
+                    <TextBlock
+                        Text="Los productos registrados se almacenan en una base de datos local."
+                        TextWrapping="Wrap"
+                        Margin="0,8,0,0"/>
+                </StackPanel>
+            </Border>
+
+        </StackPanel>
+    </ScrollViewer>
 </Page>

@@ -1,14 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <Page
-    x:Class="Prueba.views.RegistrarProductoPage"
+    x:Class="Prueba.Views.RegistrarProductoPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Prueba.views"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <Grid>
+    <ScrollViewer>
+        <StackPanel
+            Padding="28"
+            Spacing="14"
+            MaxWidth="760"
+            HorizontalAlignment="Left">
 
-    </Grid>
+            <TextBlock
+                Text="Registrar producto"
+                FontSize="30"
+                FontWeight="Bold"
+                Foreground="#49366B"/>
+
+            <TextBlock
+                Text="Completa la información del artículo que deseas agregar."
+                FontSize="15"
+                TextWrapping="Wrap"/>
+
+            <TextBlock Text="Nombre del producto"/>
+            <TextBox
+                x:Name="NombreTextBox"
+                PlaceholderText="Ej. Globos metálicos"/>
+
+            <TextBlock Text="Tipo de producto"/>
+            <ComboBox
+                x:Name="TipoComboBox"
+                PlaceholderText="Selecciona un tipo"
+                SelectedIndex="-1">
+                <ComboBoxItem Content="Decoración"/>
+                <ComboBoxItem Content="Desechables"/>
+                <ComboBoxItem Content="Piñatas"/>
+                <ComboBoxItem Content="Dulces y regalos"/>
+                <ComboBoxItem Content="Otros"/>
+            </ComboBox>
+
+            <TextBlock Text="Categoría o lista"/>
+            <TextBox
+                x:Name="CategoriaTextBox"
+                PlaceholderText="Ej. Cumpleaños, boda, baby shower"/>
+
+            <TextBlock Text="Variante o selección"/>
+            <TextBox
+                x:Name="VarianteTextBox"
+                PlaceholderText="Ej. Dorado, 12 pulgadas"/>
+
+            <CheckBox
+                x:Name="ImportadoCheckBox"
+                Content="Este producto es importado"/>
+
+            <TextBlock Text="Inventario inicial (piezas)"/>
+            <TextBox
+                x:Name="InventarioTextBox"
+                PlaceholderText="Ej. 50"
+                InputScope="Number"/>
+
+            <TextBlock Text="Precio de venta (MXN)"/>
+            <TextBox
+                x:Name="PrecioTextBox"
+                PlaceholderText="Ej. 89.50"
+                InputScope="Decimal"/>
+
+            <Button
+                Content="Guardar producto"
+                Background="#7956A8"
+                Foreground="White"
+                HorizontalAlignment="Stretch"
+                Padding="12"
+                Click="GuardarButton_Click"/>
+
+            <TextBlock
+                x:Name="MensajeTextBlock"
+                TextWrapping="Wrap"
+                FontSize="15"/>
+
+        </StackPanel>
+    </ScrollViewer>
 </Page>
+

@@ -1,20 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <Window
     x:Class="Prueba.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Prueba"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    Title="Prueba">
+    xmlns:views="using:Prueba.Views"
+    Title="FiestaStore - Inventario">
 
-    <Window.SystemBackdrop>
-        <MicaBackdrop />
-    </Window.SystemBackdrop>
+    <Grid Background="LightCyan">
+        <NavigationView
+            x:Name="MenuPrincipal"
+            PaneDisplayMode="Left"
+            IsBackButtonVisible="Collapsed"
+            IsSettingsVisible="False"
+            SelectionChanged="MenuPrincipal_SelectionChanged"
+            Background="#F7F5FA">
 
-    <Grid>
-        <Frame x:Name="MainFrame"/>
+            <NavigationView.MenuItems>
+                <NavigationViewItem
+                    Content="Inicio"
+                    Tag="Inicio"
+                    IsSelected="True">
+                    <NavigationViewItem.Icon>
+                        <SymbolIcon Symbol="Home"/>
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
 
+                <NavigationViewItem
+                    Content="Registrar producto"
+                    Tag="Registrar">
+                    <NavigationViewItem.Icon>
+                        <SymbolIcon Symbol="Add"/>
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+
+                <NavigationViewItem
+                    Content="Buscar productos"
+                    Tag="Buscar">
+                    <NavigationViewItem.Icon>
+                        <SymbolIcon Symbol="Find"/>
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+
+                <NavigationViewItem
+                    Content="Actualizar inventario"
+                    Tag="Actualizar">
+                    <NavigationViewItem.Icon>
+                        <SymbolIcon Symbol="Refresh"/>
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+
+                <NavigationViewItem
+                    Content="Reportes"
+                    Tag="Reportes">
+                    <NavigationViewItem.Icon>
+                        <SymbolIcon Symbol="Document"/>
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+            </NavigationView.MenuItems>
+
+            <NavigationView.Header>
+                <TextBlock
+                    Text="FiestaStore | Control de inventario"
+                    FontSize="20"
+                    FontWeight="SemiBold"
+                    Margin="8,8,0,8"/>
+            </NavigationView.Header>
+
+            <Frame x:Name="ContenidoFrame"/>
+        </NavigationView>
     </Grid>
 </Window>
