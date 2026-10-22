@@ -21,11 +21,27 @@ namespace Prueba
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class BlankPage1 : Page
+    public sealed partial class Login : Page
     {
-        public BlankPage1()
+        public Login()
         {
             InitializeComponent();
+        }
+        private MainWindow? _ventana;
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+            => _ventana = e.Parameter as MainWindow;
+
+        private void IngresarButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (UsuarioTextBox.Text == "admin" && PasswordBox.Password == "admin")
+            {
+                _ventana?.IniciarSesion();
+            }
+            else
+            {
+                MensajeError.Text = "Usuario o contraseña incorrectos.";
+            }
         }
     }
 }

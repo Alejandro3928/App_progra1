@@ -63,8 +63,7 @@
             <TextBlock Text="Precio de venta (MXN)"/>
             <TextBox
                 x:Name="PrecioTextBox"
-                PlaceholderText="Ej. 89.50"
-                InputScope="Decimal"/>
+                PlaceholderText="Ej. 89.50"/>
 
             <Button
                 Content="Guardar producto"

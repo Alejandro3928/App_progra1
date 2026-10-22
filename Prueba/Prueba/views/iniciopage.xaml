@@ -27,6 +27,7 @@
 
                 <Border
                     Grid.Column="0"
+                    Tapped="RegistrarProductoBorder_Tapped"
                     Background="#E9DDF7"
                     CornerRadius="12"
                     Padding="20">

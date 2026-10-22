@@ -7,56 +7,59 @@
     xmlns:views="using:Prueba.Views"
     Title="FiestaStore - Inventario">
 
-    <Grid Background="LightCyan">
+    <Grid>
         <NavigationView
             x:Name="MenuPrincipal"
+            Visibility="Collapsed"
             PaneDisplayMode="Left"
             IsBackButtonVisible="Collapsed"
             IsSettingsVisible="False"
             SelectionChanged="MenuPrincipal_SelectionChanged"
             Background="#F7F5FA">
 
+
+
             <NavigationView.MenuItems>
-                <NavigationViewItem
+        <NavigationViewItem
                     Content="Inicio"
                     Tag="Inicio"
                     IsSelected="True">
-                    <NavigationViewItem.Icon>
-                        <SymbolIcon Symbol="Home"/>
-                    </NavigationViewItem.Icon>
-                </NavigationViewItem>
+            <NavigationViewItem.Icon>
+                <SymbolIcon Symbol="Home"/>
+            </NavigationViewItem.Icon>
+        </NavigationViewItem>
 
-                <NavigationViewItem
+        <NavigationViewItem
                     Content="Registrar producto"
                     Tag="Registrar">
-                    <NavigationViewItem.Icon>
-                        <SymbolIcon Symbol="Add"/>
-                    </NavigationViewItem.Icon>
-                </NavigationViewItem>
+            <NavigationViewItem.Icon>
+                <SymbolIcon Symbol="Add"/>
+            </NavigationViewItem.Icon>
+        </NavigationViewItem>
 
-                <NavigationViewItem
+        <NavigationViewItem
                     Content="Buscar productos"
                     Tag="Buscar">
-                    <NavigationViewItem.Icon>
-                        <SymbolIcon Symbol="Find"/>
-                    </NavigationViewItem.Icon>
-                </NavigationViewItem>
+            <NavigationViewItem.Icon>
+                <SymbolIcon Symbol="Find"/>
+            </NavigationViewItem.Icon>
+        </NavigationViewItem>
 
-                <NavigationViewItem
+        <NavigationViewItem
                     Content="Actualizar inventario"
                     Tag="Actualizar">
-                    <NavigationViewItem.Icon>
-                        <SymbolIcon Symbol="Refresh"/>
-                    </NavigationViewItem.Icon>
-                </NavigationViewItem>
+            <NavigationViewItem.Icon>
+                <SymbolIcon Symbol="Refresh"/>
+            </NavigationViewItem.Icon>
+        </NavigationViewItem>
 
-                <NavigationViewItem
+        <NavigationViewItem
                     Content="Reportes"
                     Tag="Reportes">
-                    <NavigationViewItem.Icon>
-                        <SymbolIcon Symbol="Document"/>
-                    </NavigationViewItem.Icon>
-                </NavigationViewItem>
+            <NavigationViewItem.Icon>
+                <SymbolIcon Symbol="Document"/>
+            </NavigationViewItem.Icon>
+        </NavigationViewItem>
             </NavigationView.MenuItems>
 
             <NavigationView.Header>
@@ -69,5 +72,7 @@
 
             <Frame x:Name="ContenidoFrame"/>
         </NavigationView>
+
+        <Frame x:Name="LoginFrame"/>
     </Grid>
 </Window>

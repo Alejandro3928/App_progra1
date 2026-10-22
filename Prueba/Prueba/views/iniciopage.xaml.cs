@@ -27,5 +27,12 @@ namespace Prueba.Views
         {
             InitializeComponent();
         }
+
+        private void RegistrarProductoBorder_Tapped(
+            object sender,
+            Microsoft.UI.Xaml.Input.TappedRoutedEventArgs e)
+        {
+            Frame?.Navigate(typeof(RegistrarProductoPage));
+        }
     }
 }

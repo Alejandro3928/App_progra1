@@ -27,8 +27,14 @@ namespace Prueba
         public MainWindow()
         {
             InitializeComponent();
+            LoginFrame.Navigate(typeof(Login), this);   // en vez de ContenidoFrame
+        }
 
-            ContenidoFrame.Navigate(typeof(Login));
+
+        public void IniciarSesion()
+        {
+            LoginFrame.Visibility = Visibility.Collapsed;
+            MenuPrincipal.Visibility = Visibility.Visible;
         }
 
         private void MenuPrincipal_SelectionChanged(
@@ -67,6 +73,17 @@ namespace Prueba
                     ContenidoFrame.Navigate(
                         typeof(InicioPage));
                     break;
+            }
+        }
+        public void IrA(string tag)
+        {
+            foreach (var obj in MenuPrincipal.MenuItems)
+            {
+                if (obj is NavigationViewItem item && item.Tag?.ToString() == tag)
+                {
+                    MenuPrincipal.SelectedItem = item;
+                    break;
+                }
             }
         }
     }
