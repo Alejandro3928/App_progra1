@@ -14,7 +14,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="BlankPage1.xaml" />
     <None Remove="Login.xaml" />
+    <None Remove="views\iniciopage.xaml" />
+    <None Remove="views\RegistrarProductoPage.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -45,9 +48,27 @@
     <PackageReference Include="NuGet.Protocol" Version="7.9.0" />
   </ItemGroup>
   <ItemGroup>
+    <Page Update="views\RegistrarProductoPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="BlankPage1.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
     <Page Update="Login.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="views\InicioPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\" />
   </ItemGroup>
 
   <!--
