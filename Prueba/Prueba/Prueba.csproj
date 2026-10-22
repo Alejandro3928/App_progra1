@@ -14,9 +14,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
-    <None Remove="Login.xaml" />
     <None Remove="Views\BuscarProducto.xaml" />
-    <None Remove="Views\iniciopage.xaml" />
+    <None Remove="Views\InicioPage.xaml" />
     <None Remove="Views\RegistrarProductoPage.xaml" />
   </ItemGroup>
 
