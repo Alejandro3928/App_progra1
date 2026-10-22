@@ -32,15 +32,24 @@ namespace Prueba
             string usuario = UsuarioTextBox.Text;
             string contraseña = PasswordBox.Password;
 
+
             if (usuario == "admin" && contraseña == "admin")
             {
-                MensajeError.Text = "¡Inicio de sesión correcto!";
+                MainWindow ventanaPrincipal = new MainWindow();
+
+                ventanaPrincipal.Activate();
+
+                this.Close();
             }
             else
             {
-                // Mostrar mensaje de error
                 MensajeError.Text = "Usuario o contraseña incorrectos.";
             }
+        }
+
+        private void Close()
+        {
+            throw new NotImplementedException();
         }
     }
 }
