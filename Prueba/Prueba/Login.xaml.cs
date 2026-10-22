@@ -32,7 +32,7 @@ namespace Prueba
             string usuario = UsuarioTextBox.Text;
             string contraseña = PasswordBox.Password;
 
-            if (usuario == "admin" && contraseña == "admin")
+            if (usuario == "admin" && contraseña == "1234")
             {
                 MensajeError.Text = "¡Inicio de sesión correcto!";
             }
