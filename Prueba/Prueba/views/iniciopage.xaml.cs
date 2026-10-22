@@ -29,17 +29,17 @@ namespace Prueba.Views
         }
 
         private void RegistrarProductoBorder_Tapped(
-            object sender,
-            Microsoft.UI.Xaml.Input.TappedRoutedEventArgs e)
+    object sender,
+    TappedRoutedEventArgs e)
         {
-            Frame?.Navigate(typeof(RegistrarProductoPage));
+            App.Ventana?.IrA("Registrar");
         }
 
-        private void ConsultarProductoBorder_Tapped(
+        private void ExistenciasCard_Tapped(
             object sender,
-            Microsoft.UI.Xaml.Input.TappedRoutedEventArgs e)
+            TappedRoutedEventArgs e)
         {
-            Frame?.Navigate(typeof(BuscarProducto));
+            App.Ventana?.IrA("Buscar");
         }
 
     }
