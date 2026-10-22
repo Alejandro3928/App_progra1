@@ -61,7 +61,7 @@ namespace Prueba
 
                 case "Buscar":
                     ContenidoFrame.Navigate(
-                        typeof(InicioPage));
+                        typeof(BuscarProducto));
                     break;
 
                 case "Actualizar":

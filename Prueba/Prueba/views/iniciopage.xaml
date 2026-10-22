@@ -9,13 +9,13 @@
         <StackPanel Padding="32" Spacing="20">
 
             <TextBlock
-                Text="¡Bienvenido a FiestaStore!"
+                Text="¡Bienvenido a Fiesta!"
                 FontSize="30"
                 FontWeight="Bold"
                 Foreground="#49366B"/>
 
             <TextBlock
-                Text="Administra los artículos para fiestas de tu negocio desde un solo lugar."
+                Text="Administra los artículos para fiestas"
                 FontSize="16"
                 TextWrapping="Wrap"/>
 
@@ -51,6 +51,7 @@
 
                 <Border
                     Grid.Column="1"
+                    Tapped="ExistenciasCard_Tapped"
                     Background="#FBE3EE"
                     CornerRadius="12"
                     Padding="20">
