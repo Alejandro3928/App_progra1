@@ -103,7 +103,7 @@
                                 Spacing="4">
                                 <Button
                                     Content="Editar"
-                                    Click="EditarButton_Click"
+                                    Click="EditarProducto_Click"
                                     Tag="{x:Bind Id}"
                                     Background="#E9DDF7"
                                     Foreground="#49366B"
@@ -111,7 +111,7 @@
                                     FontSize="14"/>
                                 <Button
                                     Content="Eliminar"
-                                    Click="EliminarButton_Click"
+                                    Click="EliminarProducto_Click"
                                     Tag="{x:Bind Id}"
                                     Background="#FBE3EE"
                                     Foreground="#8C3F67"

@@ -136,7 +136,7 @@ namespace Prueba.Views
         {
             var dialogo = new ContentDialog
             {
-                Title = "FiestaStore",
+                Title = "Fiesta",
                 Content = mensaje,
                 CloseButtonText = "Aceptar",
                 XamlRoot = this.XamlRoot

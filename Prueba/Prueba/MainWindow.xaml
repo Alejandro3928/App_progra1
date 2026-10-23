@@ -64,7 +64,7 @@
 
             <NavigationView.Header>
                 <TextBlock
-                    Text="FiestaStore | Control de inventario"
+                    Text="Fiesta | Control de inventario"
                     FontSize="20"
                     FontWeight="SemiBold"
                     Margin="8,8,0,8"/>
