@@ -1,6 +1,7 @@
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Prueba.Services;
+using Prueba.Models;
 using System;
 
 namespace Prueba.Views
@@ -13,7 +14,6 @@ namespace Prueba.Views
         {
             InitializeComponent();
 
-            // Carga la lista completa al abrir la página.
             Loaded += (s, e) => CargarProductos(string.Empty);
         }
 
@@ -45,6 +45,98 @@ namespace Prueba.Views
                 ContadorTextBlock.Text =
                     $"No se pudieron cargar los productos: {ex.Message}";
             }
+        }
+
+        // BOTÓN ELIMINAR
+        private async void EliminarProducto_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is not Button boton || boton.DataContext is not Producto producto)
+            {
+                return;
+            }
+
+            var dialogo = new ContentDialog
+            {
+                Title = "Eliminar producto",
+                Content = $"¿Estás segura de que deseas eliminar '{producto.Nombre}'?",
+                PrimaryButtonText = "Eliminar",
+                CloseButtonText = "Cancelar",
+                DefaultButton = ContentDialogButton.Close,
+                XamlRoot = this.XamlRoot
+            };
+
+            var resultado = await dialogo.ShowAsync();
+
+            if (resultado != ContentDialogResult.Primary)
+            {
+                return;
+            }
+
+            try
+            {
+                bool eliminado = _productoService.EliminarProducto(producto.Id);
+
+                CargarProductos(BusquedaTextBox.Text.Trim());
+
+                if (eliminado)
+                {
+                    var mensaje = new ContentDialog
+                    {
+                        Title = "Producto eliminado",
+                        Content = "El producto se eliminó correctamente.",
+                        CloseButtonText = "Aceptar",
+                        XamlRoot = this.XamlRoot
+                    };
+
+                    await mensaje.ShowAsync();
+                }
+                else
+                {
+                    var mensaje = new ContentDialog
+                    {
+                        Title = "Aviso",
+                        Content = "No se encontró el producto.",
+                        CloseButtonText = "Aceptar",
+                        XamlRoot = this.XamlRoot
+                    };
+
+                    await mensaje.ShowAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+                var mensaje = new ContentDialog
+                {
+                    Title = "Error",
+                    Content = $"No se pudo eliminar el producto.\n{ex.Message}",
+                    CloseButtonText = "Aceptar",
+                    XamlRoot = this.XamlRoot
+                };
+
+                await mensaje.ShowAsync();
+            }
+        }
+
+        // BOTÓN EDITAR
+        private async void EditarProducto_Click(
+            object sender,
+            RoutedEventArgs e)
+        {
+            if (sender is not Button boton ||
+                boton.DataContext is not Producto producto)
+            {
+                return;
+            }
+
+            var mensaje = new ContentDialog
+            {
+                Title = "Editar producto",
+                Content = $"Seleccionaste: {producto.Nombre}\nID: {producto.Id}",
+                CloseButtonText = "Aceptar",
+                XamlRoot = this.XamlRoot
+            };
+
+            await mensaje.ShowAsync();
         }
     }
 }

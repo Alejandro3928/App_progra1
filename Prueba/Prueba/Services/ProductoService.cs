@@ -1,5 +1,4 @@
-﻿
-using Microsoft.Data.Sqlite;
+﻿using Microsoft.Data.Sqlite;
 using Prueba.Models;
 using System;
 using System.Collections.Generic;
@@ -116,6 +115,58 @@ namespace Prueba.Services
 
             return Convert.ToInt32(
                 idComando.ExecuteScalar());
+        }
+
+        public bool EliminarProducto(int id)
+        {
+            using var conexion = new SqliteConnection(_connectionString);
+            conexion.Open();
+
+            string sql = "DELETE FROM Productos WHERE Id = @Id;";
+            using var comando = new SqliteCommand(sql, conexion);
+            comando.Parameters.AddWithValue("@Id", id);
+
+            int filasAfectadas = comando.ExecuteNonQuery();
+            return filasAfectadas > 0;
+        }
+
+        public void ActualizarProducto(Producto producto)
+        {
+            using var conexion =
+                new SqliteConnection(_connectionString);
+            conexion.Open();
+            string sql = @"
+                UPDATE Productos
+                SET Nombre = @Nombre,
+                    Tipo = @Tipo,
+                    Categoria = @Categoria,
+                    Variante = @Variante,
+                    Importado = @Importado,
+                    InventarioInicial = @InventarioInicial,
+                    InventarioActual = @InventarioActual,
+                    Precio = @Precio
+                WHERE Id = @Id;";
+            using var comando =
+                new SqliteCommand(sql, conexion);
+            comando.Parameters.AddWithValue(
+                "@Id", producto.Id);
+            comando.Parameters.AddWithValue(
+                "@Nombre", producto.Nombre);
+            comando.Parameters.AddWithValue(
+                "@Tipo", producto.Tipo);
+            comando.Parameters.AddWithValue(
+                "@Categoria", producto.Categoria);
+            comando.Parameters.AddWithValue(
+                "@Variante", producto.Variante);
+            comando.Parameters.AddWithValue(
+                "@Importado", producto.Importado ? 1 : 0);
+            comando.Parameters.AddWithValue(
+                "@InventarioInicial", producto.InventarioInicial);
+            comando.Parameters.AddWithValue(
+                "@InventarioActual", producto.InventarioActual);
+            comando.Parameters.AddWithValue(
+                "@Precio", producto.Precio);
+            comando.ExecuteNonQuery();
         }
 
         /// <summary>

@@ -6,13 +6,13 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:models="using:Prueba.Models">
 
-    <Grid Padding="28" RowSpacing="14">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+    <Grid ColumnSpacing="20">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto" MinWidth="100"/>
+            <ColumnDefinition Width="Auto" MinWidth="90"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
 
         <TextBlock
             Grid.Row="0"
@@ -59,6 +59,7 @@
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="Auto" MinWidth="100"/>
                                 <ColumnDefinition Width="Auto" MinWidth="90"/>
+                                <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
 
                             <StackPanel Grid.Column="0" Spacing="2">
@@ -95,6 +96,28 @@
                                 Foreground="#8C3F67"
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Center"/>
+
+                            <StackPanel
+                                Grid.Column="3"
+                                VerticalAlignment="Center"
+                                Spacing="4">
+                                <Button
+                                    Content="Editar"
+                                    Click="EditarButton_Click"
+                                    Tag="{x:Bind Id}"
+                                    Background="#E9DDF7"
+                                    Foreground="#49366B"
+                                    Padding="8,4"
+                                    FontSize="14"/>
+                                <Button
+                                    Content="Eliminar"
+                                    Click="EliminarButton_Click"
+                                    Tag="{x:Bind Id}"
+                                    Background="#FBE3EE"
+                                    Foreground="#8C3F67"
+                                    Padding="8,4"
+                                    FontSize="14"/>
+                            </StackPanel>
                         </Grid>
                     </Border>
                 </DataTemplate>
