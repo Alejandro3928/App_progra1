@@ -35,6 +35,7 @@ namespace Prueba
         {
             LoginFrame.Visibility = Visibility.Collapsed;
             MenuPrincipal.Visibility = Visibility.Visible;
+            ContenidoFrame.Navigate(typeof(InicioPage));
         }
 
         private void MenuPrincipal_SelectionChanged(
