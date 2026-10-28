@@ -9,12 +9,11 @@
     mc:Ignorable="d">
 
     <Grid>
-        <Grid>
-
-            <StackPanel
-        Width="350"
-        HorizontalAlignment="Center"
-        VerticalAlignment="Center">
+        <StackPanel
+            x:Name="LoginPanel"
+            Width="350"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center">
 
                 <TextBlock
             Text="Iniciar sesión"
@@ -47,8 +46,65 @@
                     HorizontalAlignment="Center"
                     Margin="0,0,0,10"/>
                
-            </StackPanel>
-        </Grid>
+            <Button
+                Content="Crear cuenta"
+                Click="CrearCuentaButton_Click"
+                HorizontalAlignment="Center"
+                Margin="0,10,0,0"
+                Background="Transparent"
+                Foreground="#49366B"/>
+        </StackPanel>
 
+        <StackPanel
+            x:Name="CrearCuentaPanel"
+            Width="350"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Visibility="Collapsed">
+            <TextBlock
+                Text="Crear cuenta"
+                FontSize="32"
+                HorizontalAlignment="Center"
+                Margin="0,0,0,30"/>
+
+            <TextBox
+                x:Name="NuevoUsuarioTextBox"
+                Header="Usuario"
+                PlaceholderText="Escribe un usuario"
+                Margin="0,0,0,15"/>
+
+            <PasswordBox
+                x:Name="NuevaContrasenaPasswordBox"
+                Header="Contraseña"
+                PlaceholderText="Mínimo 6 caracteres"
+                Margin="0,0,0,15"/>
+
+            <PasswordBox
+                x:Name="ConfirmarContrasenaPasswordBox"
+                Header="Confirmar contraseña"
+                PlaceholderText="Repite la contraseña"
+                Margin="0,0,0,20"/>
+
+            <Button
+                Content="Registrar cuenta"
+                Click="RegistrarCuentaButton_Click"
+                HorizontalAlignment="Center"
+                Width="150"/>
+
+            <Button
+                Content="Volver al inicio de sesión"
+                Click="CancelarCrearCuentaButton_Click"
+                HorizontalAlignment="Center"
+                Margin="0,10,0,0"
+                Background="Transparent"
+                Foreground="#49366B"/>
+
+            <TextBlock
+                x:Name="MensajeRegistro"
+                Foreground="Red"
+                TextWrapping="Wrap"
+                HorizontalAlignment="Center"
+                Margin="0,12,0,0"/>
+        </StackPanel>
     </Grid>
 </Page>

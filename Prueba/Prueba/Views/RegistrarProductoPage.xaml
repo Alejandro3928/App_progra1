@@ -28,6 +28,11 @@
                 x:Name="NombreTextBox"
                 PlaceholderText="Ej. Globos metálicos"/>
 
+            <TextBlock Text="Marca"/>
+            <TextBox
+                x:Name="MarcaTextBox"
+                PlaceholderText="Ej. Partyland"/>
+
             <TextBlock Text="Tipo de producto"/>
             <ComboBox
                 x:Name="TipoComboBox"
@@ -64,6 +69,24 @@
             <TextBox
                 x:Name="PrecioTextBox"
                 PlaceholderText="Ej.99.50"/>
+
+            <TextBlock Text="Imagen del producto"/>
+            <Button
+                Content="Seleccionar imagen"
+                Click="SeleccionarImagenButton_Click"
+                HorizontalAlignment="Left"/>
+            <TextBlock
+                x:Name="ImagenSeleccionadaTextBlock"
+                Text="Ninguna imagen seleccionada"
+                TextWrapping="Wrap"/>
+            
+            <Image
+                x:Name="ImagenProducto"
+                Width="200"
+                Height="200"
+                Stretch="UniformToFill"
+                Margin="0,10,0,10"
+                Visibility="Collapsed"/>
 
             <Button
                 Content="Guardar producto"

@@ -4,6 +4,7 @@ using Microsoft.UI.Xaml.Controls.Primitives;
 using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
+using Microsoft.UI.Xaml.Media.Imaging;
 using Microsoft.UI.Xaml.Navigation;
 using Prueba.Models;
 using Prueba.Services;
@@ -15,6 +16,8 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage.Pickers;
+using WinRT.Interop;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -27,12 +30,14 @@ namespace Prueba.Views
     public sealed partial class RegistrarProductoPage : Page
     {
         private readonly ProductoService _productoService;
+        private string _imagenSeleccionada = string.Empty;
 
         public RegistrarProductoPage()
         {
             InitializeComponent();
 
             _productoService = new ProductoService();
+
         }
 
         private async void GuardarButton_Click(
@@ -40,6 +45,7 @@ namespace Prueba.Views
             RoutedEventArgs e)
         {
             string nombre = NombreTextBox.Text.Trim();
+            string marca = MarcaTextBox.Text.Trim();
             string categoria = CategoriaTextBox.Text.Trim();
             string variante = VarianteTextBox.Text.Trim();
 
@@ -47,6 +53,12 @@ namespace Prueba.Views
             {
                 await MostrarMensaje(
                     "Escribe el nombre del producto.");
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(marca))
+            {
+                await MostrarMensaje("Escribe la marca del producto.");
                 return;
             }
 
@@ -106,13 +118,15 @@ namespace Prueba.Views
             var producto = new Producto
             {
                 Nombre = nombre,
+                Marca = marca,
+                Imagen = _imagenSeleccionada,
                 Tipo = tipo,
                 Categoria = categoria,
                 Variante = variante,
                 Importado = ImportadoCheckBox.IsChecked == true,
                 InventarioInicial = inventario,
                 InventarioActual = inventario,
-                Precio = precio
+                Precio = precio,
             };
 
             try
@@ -129,6 +143,36 @@ namespace Prueba.Views
                 await MostrarMensaje(
                     $"No se pudo guardar el producto.\n{ex.Message}");
             }
+        }
+
+        private async void SeleccionarImagenButton_Click(
+            object sender,
+            RoutedEventArgs e)
+        {
+            if (App.Ventana is null)
+            {
+                return;
+            }
+
+            var selector = new FileOpenPicker();
+            selector.FileTypeFilter.Add(".jpg");
+            selector.FileTypeFilter.Add(".jpeg");
+            selector.FileTypeFilter.Add(".png");
+            selector.FileTypeFilter.Add(".webp");
+
+            IntPtr ventana = WindowNative.GetWindowHandle(App.Ventana);
+            InitializeWithWindow.Initialize(selector, ventana);
+
+            var archivo = await selector.PickSingleFileAsync();
+            if (archivo is null)
+            {
+                return;
+            }
+
+            _imagenSeleccionada = archivo.Path;
+            ImagenSeleccionadaTextBlock.Text = archivo.Name;
+            ImagenProducto.Source = new BitmapImage(new Uri(_imagenSeleccionada));
+            ImagenProducto.Visibility = Visibility.Visible;
         }
 
         private async System.Threading.Tasks.Task MostrarMensaje(
@@ -148,12 +192,17 @@ namespace Prueba.Views
         private void LimpiarFormulario()
         {
             NombreTextBox.Text = string.Empty;
+            MarcaTextBox.Text = string.Empty;
             TipoComboBox.SelectedIndex = -1;
             CategoriaTextBox.Text = string.Empty;
             VarianteTextBox.Text = string.Empty;
             ImportadoCheckBox.IsChecked = false;
             InventarioTextBox.Text = string.Empty;
             PrecioTextBox.Text = string.Empty;
+            _imagenSeleccionada = string.Empty;
+            ImagenSeleccionadaTextBlock.Text = "Ninguna imagen seleccionada";
+            ImagenProducto.Source = null;
+            ImagenProducto.Visibility = Visibility.Collapsed;
         }
 
     }

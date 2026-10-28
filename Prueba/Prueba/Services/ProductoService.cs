@@ -1,4 +1,5 @@
-﻿using Microsoft.Data.Sqlite;
+﻿using Microsoft.Data.SqlClient;
+using Microsoft.Data.Sqlite;
 using Prueba.Models;
 using System;
 using System.Collections.Generic;
@@ -16,13 +17,9 @@ namespace Prueba.Services
                 .Current.LocalFolder.Path;
 
             string ruta = Path.Combine(carpeta, "inventario.db");
-
-            _connectionString =
-                $"Data Source={ruta}";
-
+            _connectionString = $"Data Source={ruta}";
             CrearTabla();
         }
-
         private void CrearTabla()
         {
             using var conexion =
@@ -37,6 +34,8 @@ namespace Prueba.Services
                     Tipo TEXT NOT NULL,
                     Categoria TEXT NOT NULL,
                     Variante TEXT NOT NULL,
+                    Marca TEXT NOT NULL DEFAULT '',
+                    Imagen TEXT NOT NULL DEFAULT '',
                     Importado INTEGER NOT NULL,
                     InventarioInicial INTEGER NOT NULL,
                     InventarioActual INTEGER NOT NULL,
@@ -47,6 +46,25 @@ namespace Prueba.Services
                 new SqliteCommand(sql, conexion);
 
             comando.ExecuteNonQuery();
+
+            AgregarColumnaSiNoExiste(conexion, "Marca");
+            AgregarColumnaSiNoExiste(conexion, "Imagen");
+        }
+
+        private static void AgregarColumnaSiNoExiste(
+            SqliteConnection conexion,
+            string columna)
+        {
+            try
+            {
+                using var comando = new SqliteCommand(
+                    $"ALTER TABLE Productos ADD COLUMN {columna} TEXT NOT NULL DEFAULT '';",
+                    conexion);
+                comando.ExecuteNonQuery();
+            }
+            catch (SqliteException ex) when (ex.SqliteErrorCode == 1)
+            {
+            }
         }
 
         public int GuardarProducto(Producto producto)
@@ -63,6 +81,8 @@ namespace Prueba.Services
                     Tipo,
                     Categoria,
                     Variante,
+                    Marca,
+                    Imagen,
                     Importado,
                     InventarioInicial,
                     InventarioActual,
@@ -74,6 +94,8 @@ namespace Prueba.Services
                     @Tipo,
                     @Categoria,
                     @Variante,
+                    @Marca,
+                    @Imagen,
                     @Importado,
                     @InventarioInicial,
                     @InventarioActual,
@@ -94,6 +116,12 @@ namespace Prueba.Services
 
             comando.Parameters.AddWithValue(
                 "@Variante", producto.Variante);
+
+            comando.Parameters.AddWithValue(
+                "@Marca", producto.Marca);
+
+            comando.Parameters.AddWithValue(
+                "@Imagen", producto.Imagen);
 
             comando.Parameters.AddWithValue(
                 "@Importado", producto.Importado ? 1 : 0);
@@ -141,6 +169,8 @@ namespace Prueba.Services
                     Tipo = @Tipo,
                     Categoria = @Categoria,
                     Variante = @Variante,
+                    Marca = @Marca,
+                    Imagen = @Imagen,
                     Importado = @Importado,
                     InventarioInicial = @InventarioInicial,
                     InventarioActual = @InventarioActual,
@@ -158,6 +188,10 @@ namespace Prueba.Services
                 "@Categoria", producto.Categoria);
             comando.Parameters.AddWithValue(
                 "@Variante", producto.Variante);
+            comando.Parameters.AddWithValue(
+                "@Marca", producto.Marca);
+            comando.Parameters.AddWithValue(
+                "@Imagen", producto.Imagen);
             comando.Parameters.AddWithValue(
                 "@Importado", producto.Importado ? 1 : 0);
             comando.Parameters.AddWithValue(
@@ -197,6 +231,8 @@ namespace Prueba.Services
                     Tipo,
                     Categoria,
                     Variante,
+                    Marca,
+                    Imagen,
                     Importado,
                     InventarioInicial,
                     InventarioActual,
@@ -206,6 +242,7 @@ namespace Prueba.Services
                    OR Tipo      LIKE @Texto
                    OR Categoria LIKE @Texto
                    OR Variante  LIKE @Texto
+                   OR Marca     LIKE @Texto
                 ORDER BY Nombre;";
 
             using var comando =
@@ -225,10 +262,12 @@ namespace Prueba.Services
                     Tipo = lector.GetString(2),
                     Categoria = lector.GetString(3),
                     Variante = lector.GetString(4),
-                    Importado = lector.GetInt32(5) == 1,
-                    InventarioInicial = lector.GetInt32(6),
-                    InventarioActual = lector.GetInt32(7),
-                    Precio = Convert.ToDecimal(lector.GetDouble(8))
+                    Marca = lector.GetString(5),
+                    Imagen = lector.GetString(6),
+                    Importado = lector.GetInt32(7) == 1,
+                    InventarioInicial = lector.GetInt32(8),
+                    InventarioActual = lector.GetInt32(9),
+                    Precio = Convert.ToDecimal(lector.GetDouble(10))
                 });
             }
 
