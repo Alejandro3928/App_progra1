@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+    
+<Page
+    x:Class="Prueba.Views.Reportes"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:models="using:Prueba.Models">
+
+    <ScrollViewer>
+        <StackPanel Padding="28" Spacing="18">
+
+            <TextBlock
+                Text="Reportes"
+                FontSize="30"
+                FontWeight="Bold"
+                Foreground="#49366B"/>
+
+            <!-- RESUMEN -->
+            <Grid ColumnSpacing="14">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.Column="0" Background="White" CornerRadius="12" Padding="18">
+                    <StackPanel Spacing="4">
+                        <TextBlock Text="Productos registrados" Foreground="#6B5B80"/>
+                        <TextBlock
+                            x:Name="TotalProductosTextBlock"
+                            Text="0"
+                            FontSize="28"
+                            FontWeight="Bold"
+                            Foreground="#49366B"/>
+                    </StackPanel>
+                </Border>
+
+                <Border Grid.Column="1" Background="White" CornerRadius="12" Padding="18">
+                    <StackPanel Spacing="4">
+                        <TextBlock Text="Piezas en existencia" Foreground="#6B5B80"/>
+                        <TextBlock
+                            x:Name="TotalPiezasTextBlock"
+                            Text="0"
+                            FontSize="28"
+                            FontWeight="Bold"
+                            Foreground="#49366B"/>
+                    </StackPanel>
+                </Border>
+
+                <Border Grid.Column="2" Background="White" CornerRadius="12" Padding="18">
+                    <StackPanel Spacing="4">
+                        <TextBlock Text="Valor del inventario" Foreground="#6B5B80"/>
+                        <TextBlock
+                            x:Name="ValorTotalTextBlock"
+                            Text="$0.00"
+                            FontSize="28"
+                            FontWeight="Bold"
+                            Foreground="#49366B"/>
+                    </StackPanel>
+                </Border>
+
+                <Border Grid.Column="3" Background="White" CornerRadius="12" Padding="18">
+                    <StackPanel Spacing="4">
+                        <TextBlock Text="Con poco stock" Foreground="#6B5B80"/>
+                        <TextBlock
+                            x:Name="PocoStockCountTextBlock"
+                            Text="0"
+                            FontSize="28"
+                            FontWeight="Bold"
+                            Foreground="#8C3F67"/>
+                    </StackPanel>
+                </Border>
+            </Grid>
+
+            <!-- POCO STOCK -->
+            <Border Background="White" CornerRadius="12" Padding="20">
+                <StackPanel Spacing="12">
+                    <TextBlock
+                        Text="Productos con poco stock"
+                        FontSize="20"
+                        FontWeight="SemiBold"
+                        Foreground="#49366B"/>
+
+                    <NumberBox
+                        x:Name="UmbralNumberBox"
+                        Header="Mostrar productos con esta cantidad de piezas o menos"
+                        Value="5"
+                        Minimum="0"
+                        SmallChange="1"
+                        Width="360"
+                        HorizontalAlignment="Left"
+                        SpinButtonPlacementMode="Compact"
+                        ValueChanged="UmbralNumberBox_ValueChanged"/>
+
+                    <TextBlock
+                        x:Name="SinPocoStockTextBlock"
+                        Text="Ningún producto está por debajo de ese límite."
+                        Foreground="#6B5B80"
+                        Visibility="Collapsed"/>
+
+                    <ItemsControl x:Name="PocoStockItemsControl">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate x:DataType="models:Producto">
+                                <Grid Padding="0,8" ColumnSpacing="12">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <StackPanel Grid.Column="0" Spacing="2">
+                                        <TextBlock
+                                            Text="{x:Bind Nombre}"
+                                            FontWeight="SemiBold"
+                                            TextWrapping="Wrap"/>
+                                        <TextBlock
+                                            Text="{x:Bind Detalle}"
+                                            FontSize="12"
+                                            Foreground="#6B5B80"
+                                            TextWrapping="Wrap"/>
+                                    </StackPanel>
+
+                                    <TextBlock
+                                        Grid.Column="1"
+                                        Text="{x:Bind ExistenciaTexto}"
+                                        FontWeight="Bold"
+                                        Foreground="#8C3F67"
+                                        VerticalAlignment="Center"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </Border>
+
+            <!-- EXPORTAR -->
+            <Border Background="White" CornerRadius="12" Padding="20">
+                <StackPanel Spacing="10">
+                    <TextBlock
+                        Text="Exportar inventario"
+                        FontSize="20"
+                        FontWeight="SemiBold"
+                        Foreground="#49366B"/>
+
+                    <TextBlock
+                        Text="Guarda todos los productos en un archivo CSV que puedes abrir en Excel."
+                        Foreground="#6B5B80"
+                        TextWrapping="Wrap"/>
+
+                    <Button
+                        Content="Exportar a CSV"
+                        Click="ExportarButton_Click"
+                        Background="#6B4FA3"
+                        Foreground="White"
+                        Padding="16,8"/>
+
+                    <TextBlock
+                        x:Name="MensajeTextBlock"
+                        TextWrapping="Wrap"/>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</Page>

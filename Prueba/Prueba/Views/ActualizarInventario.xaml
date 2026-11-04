@@ -1,14 +1,211 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <Page
     x:Class="Prueba.Views.ActualizarInventario"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Prueba.Views"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    xmlns:models="using:Prueba.Models">
 
-    <Grid>
+    <Grid Padding="28" RowSpacing="14" ColumnSpacing="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
 
+        <TextBlock
+            Grid.Row="0"
+            Grid.ColumnSpan="2"
+            Text="Actualizar inventario"
+            FontSize="30"
+            FontWeight="Bold"
+            Foreground="#49366B"/>
+
+        <!-- COLUMNA IZQUIERDA: buscar y elegir producto -->
+        <Grid Grid.Row="1" Grid.Column="0" RowSpacing="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <TextBox
+                Grid.Row="0"
+                x:Name="BusquedaTextBox"
+                PlaceholderText="Busca el producto por nombre, marca o categoría"
+                TextChanged="BusquedaTextBox_TextChanged"/>
+
+            <TextBlock
+                Grid.Row="1"
+                x:Name="ContadorTextBlock"
+                Foreground="#6B5B80"/>
+
+            <ListView
+                Grid.Row="2"
+                x:Name="ProductosListView"
+                SelectionMode="Single"
+                SelectionChanged="ProductosListView_SelectionChanged">
+
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                        <Setter Property="Margin" Value="0,0,0,6"/>
+                        <Setter Property="Padding" Value="0"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
+
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="models:Producto">
+                        <Border
+                            Background="White"
+                            CornerRadius="10"
+                            Padding="14,10">
+                            <Grid ColumnSpacing="12">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel Grid.Column="0" Spacing="2">
+                                    <TextBlock
+                                        Text="{x:Bind Nombre}"
+                                        FontWeight="SemiBold"
+                                        Foreground="#49366B"
+                                        TextWrapping="Wrap"/>
+                                    <TextBlock
+                                        Text="{x:Bind Detalle}"
+                                        FontSize="12"
+                                        Foreground="#6B5B80"
+                                        TextWrapping="Wrap"/>
+                                </StackPanel>
+
+                                <TextBlock
+                                    Grid.Column="1"
+                                    Text="{x:Bind ExistenciaTexto}"
+                                    FontWeight="SemiBold"
+                                    VerticalAlignment="Center"/>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+
+        <!-- COLUMNA DERECHA: registrar movimiento e historial -->
+        <Border
+            Grid.Row="1"
+            Grid.Column="1"
+            Background="White"
+            CornerRadius="12"
+            Padding="20">
+
+            <Grid>
+                <TextBlock
+                    x:Name="SinSeleccionTextBlock"
+                    Text="Selecciona un producto de la lista para registrar una entrada o una salida."
+                    TextWrapping="Wrap"
+                    Foreground="#6B5B80"/>
+
+                <ScrollViewer
+                    x:Name="DetalleScrollViewer"
+                    Visibility="Collapsed">
+
+                    <StackPanel Spacing="12">
+                        <TextBlock
+                            x:Name="NombreProductoTextBlock"
+                            FontSize="22"
+                            FontWeight="Bold"
+                            Foreground="#49366B"
+                            TextWrapping="Wrap"/>
+
+                        <TextBlock
+                            x:Name="ExistenciaTextBlock"
+                            FontSize="16"
+                            Foreground="#6B5B80"/>
+
+                        <ComboBox
+                            x:Name="TipoMovimientoComboBox"
+                            Header="Tipo de movimiento"
+                            SelectedIndex="0"
+                            HorizontalAlignment="Stretch">
+                            <ComboBoxItem Content="Entrada (llegan piezas)" Tag="Entrada"/>
+                            <ComboBoxItem Content="Salida (venta, merma, etc.)" Tag="Salida"/>
+                        </ComboBox>
+
+                        <NumberBox
+                            x:Name="CantidadNumberBox"
+                            Header="Cantidad"
+                            PlaceholderText="Ej. 10"
+                            Minimum="1"
+                            SmallChange="1"
+                            SpinButtonPlacementMode="Compact"/>
+
+                        <TextBox
+                            x:Name="MotivoTextBox"
+                            Header="Motivo (opcional)"
+                            PlaceholderText="Ej. compra a proveedor, venta, producto dañado"/>
+
+                        <Button
+                            Content="Registrar movimiento"
+                            Click="RegistrarButton_Click"
+                            Background="#6B4FA3"
+                            Foreground="White"
+                            Padding="16,8"/>
+
+                        <TextBlock
+                            x:Name="MensajeTextBlock"
+                            TextWrapping="Wrap"/>
+
+                        <TextBlock
+                            Text="Últimos movimientos"
+                            FontSize="16"
+                            FontWeight="SemiBold"
+                            Foreground="#49366B"
+                            Margin="0,8,0,0"/>
+
+                        <TextBlock
+                            x:Name="SinMovimientosTextBlock"
+                            Text="Este producto todavía no tiene movimientos."
+                            Foreground="#6B5B80"
+                            Visibility="Collapsed"/>
+
+                        <ItemsControl x:Name="HistorialItemsControl">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate x:DataType="models:Movimiento">
+                                    <Grid Padding="0,6" ColumnSpacing="12">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <StackPanel Grid.Column="0" Spacing="2">
+                                            <TextBlock
+                                                Text="{x:Bind MotivoTexto}"
+                                                TextWrapping="Wrap"/>
+                                            <TextBlock
+                                                Text="{x:Bind FechaTexto}"
+                                                FontSize="12"
+                                                Foreground="#6B5B80"/>
+                                        </StackPanel>
+
+                                        <TextBlock
+                                            Grid.Column="1"
+                                            Text="{x:Bind CantidadTexto}"
+                                            Foreground="{x:Bind ColorCantidad}"
+                                            FontSize="17"
+                                            FontWeight="Bold"
+                                            VerticalAlignment="Center"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
+        </Border>
     </Grid>
 </Page>
+

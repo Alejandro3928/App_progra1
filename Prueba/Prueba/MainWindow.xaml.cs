@@ -72,7 +72,7 @@ namespace Prueba
 
                 case "Reportes":
                     ContenidoFrame.Navigate(
-                        typeof(InicioPage));
+                        typeof(Reportes));
                     break;
             }
         }

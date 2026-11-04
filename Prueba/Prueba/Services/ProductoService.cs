@@ -1,8 +1,8 @@
-﻿using Microsoft.Data.SqlClient;
-using Microsoft.Data.Sqlite;
+﻿using Microsoft.Data.Sqlite;
 using Prueba.Models;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 
 namespace Prueba.Services
@@ -46,6 +46,21 @@ namespace Prueba.Services
                 new SqliteCommand(sql, conexion);
 
             comando.ExecuteNonQuery();
+
+            string sqlMovimientos = @"
+                CREATE TABLE IF NOT EXISTS Movimientos (
+                    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    ProductoId INTEGER NOT NULL,
+                    Tipo TEXT NOT NULL,
+                    Cantidad INTEGER NOT NULL,
+                    Motivo TEXT NOT NULL DEFAULT '',
+                    Fecha TEXT NOT NULL
+                );";
+
+            using var comandoMovimientos =
+                new SqliteCommand(sqlMovimientos, conexion);
+
+            comandoMovimientos.ExecuteNonQuery();
 
             AgregarColumnaSiNoExiste(conexion, "Marca");
             AgregarColumnaSiNoExiste(conexion, "Imagen");
@@ -150,11 +165,29 @@ namespace Prueba.Services
             using var conexion = new SqliteConnection(_connectionString);
             conexion.Open();
 
-            string sql = "DELETE FROM Productos WHERE Id = @Id;";
-            using var comando = new SqliteCommand(sql, conexion);
-            comando.Parameters.AddWithValue("@Id", id);
+            using var transaccion = conexion.BeginTransaction();
 
-            int filasAfectadas = comando.ExecuteNonQuery();
+            using (var borrarMovimientos = new SqliteCommand(
+                "DELETE FROM Movimientos WHERE ProductoId = @Id;",
+                conexion,
+                transaccion))
+            {
+                borrarMovimientos.Parameters.AddWithValue("@Id", id);
+                borrarMovimientos.ExecuteNonQuery();
+            }
+
+            int filasAfectadas;
+
+            using (var borrarProducto = new SqliteCommand(
+                "DELETE FROM Productos WHERE Id = @Id;",
+                conexion,
+                transaccion))
+            {
+                borrarProducto.Parameters.AddWithValue("@Id", id);
+                filasAfectadas = borrarProducto.ExecuteNonQuery();
+            }
+
+            transaccion.Commit();
             return filasAfectadas > 0;
         }
 
@@ -201,6 +234,131 @@ namespace Prueba.Services
             comando.Parameters.AddWithValue(
                 "@Precio", producto.Precio);
             comando.ExecuteNonQuery();
+        }
+
+        /// <summary>
+        /// Registra una entrada o una salida de piezas. Actualiza las
+        /// existencias y guarda el movimiento en una sola operación:
+        /// si algo falla, no se guarda ninguna de las dos cosas.
+        /// </summary>
+        public void RegistrarMovimiento(
+            int productoId,
+            string tipo,
+            int cantidad,
+            string motivo)
+        {
+            if (tipo != "Entrada" && tipo != "Salida")
+            {
+                throw new ArgumentException("Tipo de movimiento no válido.");
+            }
+
+            if (cantidad <= 0)
+            {
+                throw new ArgumentException(
+                    "La cantidad debe ser mayor que cero.");
+            }
+
+            int cambio = tipo == "Entrada" ? cantidad : -cantidad;
+
+            using var conexion =
+                new SqliteConnection(_connectionString);
+
+            conexion.Open();
+
+            using var transaccion = conexion.BeginTransaction();
+
+            // La condición "InventarioActual + @Cambio >= 0" evita
+            // que una salida deje las existencias en negativo.
+            const string sqlActualizar = @"
+                UPDATE Productos
+                SET InventarioActual = InventarioActual + @Cambio
+                WHERE Id = @Id
+                  AND InventarioActual + @Cambio >= 0;";
+
+            using (var actualizar = new SqliteCommand(
+                sqlActualizar, conexion, transaccion))
+            {
+                actualizar.Parameters.AddWithValue("@Cambio", cambio);
+                actualizar.Parameters.AddWithValue("@Id", productoId);
+
+                if (actualizar.ExecuteNonQuery() == 0)
+                {
+                    throw new InvalidOperationException(
+                        "No hay suficientes existencias para esta salida " +
+                        "(o el producto ya no existe).");
+                }
+            }
+
+            const string sqlMovimiento = @"
+                INSERT INTO Movimientos
+                    (ProductoId, Tipo, Cantidad, Motivo, Fecha)
+                VALUES
+                    (@ProductoId, @Tipo, @Cantidad, @Motivo, @Fecha);";
+
+            using (var insertar = new SqliteCommand(
+                sqlMovimiento, conexion, transaccion))
+            {
+                insertar.Parameters.AddWithValue("@ProductoId", productoId);
+                insertar.Parameters.AddWithValue("@Tipo", tipo);
+                insertar.Parameters.AddWithValue("@Cantidad", cantidad);
+                insertar.Parameters.AddWithValue("@Motivo", motivo);
+                insertar.Parameters.AddWithValue(
+                    "@Fecha",
+                    DateTime.Now.ToString(
+                        "yyyy-MM-dd HH:mm:ss",
+                        CultureInfo.InvariantCulture));
+
+                insertar.ExecuteNonQuery();
+            }
+
+            transaccion.Commit();
+        }
+
+        /// <summary>
+        /// Devuelve los últimos movimientos de un producto, del más
+        /// reciente al más antiguo.
+        /// </summary>
+        public List<Movimiento> ObtenerMovimientos(
+            int productoId,
+            int maximo = 30)
+        {
+            var movimientos = new List<Movimiento>();
+
+            using var conexion =
+                new SqliteConnection(_connectionString);
+
+            conexion.Open();
+
+            const string sql = @"
+                SELECT Id, ProductoId, Tipo, Cantidad, Motivo, Fecha
+                FROM Movimientos
+                WHERE ProductoId = @ProductoId
+                ORDER BY Fecha DESC, Id DESC
+                LIMIT @Maximo;";
+
+            using var comando = new SqliteCommand(sql, conexion);
+            comando.Parameters.AddWithValue("@ProductoId", productoId);
+            comando.Parameters.AddWithValue("@Maximo", maximo);
+
+            using var lector = comando.ExecuteReader();
+
+            while (lector.Read())
+            {
+                movimientos.Add(new Movimiento
+                {
+                    Id = lector.GetInt32(0),
+                    ProductoId = lector.GetInt32(1),
+                    Tipo = lector.GetString(2),
+                    Cantidad = lector.GetInt32(3),
+                    Motivo = lector.GetString(4),
+                    Fecha = DateTime.ParseExact(
+                        lector.GetString(5),
+                        "yyyy-MM-dd HH:mm:ss",
+                        CultureInfo.InvariantCulture)
+                });
+            }
+
+            return movimientos;
         }
 
         /// <summary>
