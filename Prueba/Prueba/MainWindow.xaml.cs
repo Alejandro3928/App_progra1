@@ -67,7 +67,7 @@ namespace Prueba
 
                 case "Actualizar":
                     ContenidoFrame.Navigate(
-                        typeof(InicioPage));
+                        typeof(ActualizarInventario));
                     break;
 
                 case "Reportes":

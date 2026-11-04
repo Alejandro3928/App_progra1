@@ -128,15 +128,171 @@ namespace Prueba.Views
                 return;
             }
 
-            var mensaje = new ContentDialog
+            var nombreBox = new TextBox
+            {
+                Header = "Nombre",
+                Text = producto.Nombre
+            };
+
+            var marcaBox = new TextBox
+            {
+                Header = "Marca",
+                Text = producto.Marca
+            };
+
+            string[] tipos =
+            {
+                "Decoración", "Desechables", "Piñatas",
+                "Dulces y regalos", "Otros"
+            };
+
+            var tipoCombo = new ComboBox
+            {
+                Header = "Tipo",
+                ItemsSource = tipos,
+                SelectedItem = producto.Tipo,
+                HorizontalAlignment = HorizontalAlignment.Stretch
+            };
+
+            var categoriaBox = new TextBox
+            {
+                Header = "Categoría o lista",
+                Text = producto.Categoria
+            };
+
+            var varianteBox = new TextBox
+            {
+                Header = "Variante (opcional)",
+                Text = producto.Variante
+            };
+
+            var importadoCheck = new CheckBox
+            {
+                Content = "Es importado",
+                IsChecked = producto.Importado
+            };
+
+            var inventarioBox = new NumberBox
+            {
+                Header = "Inventario actual",
+                Value = producto.InventarioActual,
+                Minimum = 0,
+                SmallChange = 1,
+                SpinButtonPlacementMode = NumberBoxSpinButtonPlacementMode.Compact
+            };
+
+            var precioBox = new NumberBox
+            {
+                Header = "Precio",
+                Value = (double)producto.Precio,
+                Minimum = 0,
+                SmallChange = 1,
+                SpinButtonPlacementMode = NumberBoxSpinButtonPlacementMode.Compact
+            };
+
+            var errorTexto = new TextBlock
+            {
+                Foreground = new Microsoft.UI.Xaml.Media.SolidColorBrush(
+                    Microsoft.UI.Colors.Red),
+                TextWrapping = TextWrapping.Wrap
+            };
+
+            var panel = new StackPanel { Spacing = 12 };
+            panel.Children.Add(nombreBox);
+            panel.Children.Add(marcaBox);
+            panel.Children.Add(tipoCombo);
+            panel.Children.Add(categoriaBox);
+            panel.Children.Add(varianteBox);
+            panel.Children.Add(importadoCheck);
+            panel.Children.Add(inventarioBox);
+            panel.Children.Add(precioBox);
+            panel.Children.Add(errorTexto);
+
+            var dialogo = new ContentDialog
             {
                 Title = "Editar producto",
-                Content = $"Seleccionaste: {producto.Nombre}\nID: {producto.Id}",
-                CloseButtonText = "Aceptar",
+                Content = new ScrollViewer { Content = panel },
+                PrimaryButtonText = "Guardar",
+                CloseButtonText = "Cancelar",
+                DefaultButton = ContentDialogButton.Primary,
                 XamlRoot = this.XamlRoot
             };
 
-            await mensaje.ShowAsync();
+            // Valida antes de cerrar: si hay un error, el cuadro se queda abierto.
+            dialogo.PrimaryButtonClick += (s, args) =>
+            {
+                if (string.IsNullOrWhiteSpace(nombreBox.Text))
+                {
+                    errorTexto.Text = "Escribe el nombre del producto.";
+                    args.Cancel = true;
+                }
+                else if (string.IsNullOrWhiteSpace(marcaBox.Text))
+                {
+                    errorTexto.Text = "Escribe la marca del producto.";
+                    args.Cancel = true;
+                }
+                else if (tipoCombo.SelectedItem is not string)
+                {
+                    errorTexto.Text = "Selecciona el tipo de producto.";
+                    args.Cancel = true;
+                }
+                else if (string.IsNullOrWhiteSpace(categoriaBox.Text))
+                {
+                    errorTexto.Text = "Escribe la categoría o lista.";
+                    args.Cancel = true;
+                }
+                else if (double.IsNaN(inventarioBox.Value)
+                         || inventarioBox.Value < 0)
+                {
+                    errorTexto.Text = "El inventario debe ser un número igual o mayor que cero.";
+                    args.Cancel = true;
+                }
+                else if (double.IsNaN(precioBox.Value)
+                         || precioBox.Value < 0)
+                {
+                    errorTexto.Text = "Escribe un precio válido igual o mayor que cero.";
+                    args.Cancel = true;
+                }
+            };
+
+            var resultado = await dialogo.ShowAsync();
+
+            if (resultado != ContentDialogResult.Primary)
+            {
+                return;
+            }
+
+            // Pasa los valores nuevos al producto (la imagen y el inventario
+            // inicial se conservan como estaban).
+            producto.Nombre = nombreBox.Text.Trim();
+            producto.Marca = marcaBox.Text.Trim();
+            producto.Tipo = (string)tipoCombo.SelectedItem;
+            producto.Categoria = categoriaBox.Text.Trim();
+            producto.Variante = varianteBox.Text.Trim();
+            producto.Importado = importadoCheck.IsChecked == true;
+            producto.InventarioActual = (int)Math.Round(inventarioBox.Value);
+            producto.Precio = Math.Round((decimal)precioBox.Value, 2);
+
+            try
+            {
+                _productoService.ActualizarProducto(producto);
+            }
+            catch (Exception ex)
+            {
+                var error = new ContentDialog
+                {
+                    Title = "Error",
+                    Content = $"No se pudo guardar el producto.\n{ex.Message}",
+                    CloseButtonText = "Aceptar",
+                    XamlRoot = this.XamlRoot
+                };
+
+                await error.ShowAsync();
+            }
+
+            // Vuelve a leer la lista desde la base de datos para mostrar los cambios.
+            CargarProductos(BusquedaTextBox.Text.Trim());
+
         }
     }
 }
