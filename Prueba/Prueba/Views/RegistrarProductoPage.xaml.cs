@@ -131,6 +131,19 @@ namespace Prueba.Views
 
             try
             {
+                if (_productoService.ExisteProducto(nombre, marca, variante))
+                {
+                    bool guardarIgual = await Confirmar(
+                        "Producto repetido",
+                        "Ya existe un producto con el mismo nombre, marca y variante.\n" +
+                        "¿Quieres guardarlo de todos modos?");
+
+                    if (!guardarIgual)
+                    {
+                        return;
+                    }
+                }
+
                 int id = _productoService.GuardarProducto(producto);
 
                 await MostrarMensaje(
@@ -169,10 +182,72 @@ namespace Prueba.Views
                 return;
             }
 
-            _imagenSeleccionada = archivo.Path;
+            try
+            {
+                // Copia la imagen a la carpeta de datos de la app, para que
+                // el producto no la pierda si el archivo original se mueve o se borra.
+                var carpetaImagenes = await Windows.Storage.ApplicationData.Current
+                    .LocalFolder.CreateFolderAsync(
+                        "Imagenes",
+                        Windows.Storage.CreationCollisionOption.OpenIfExists);
+
+                string nombreUnico =
+                    $"{Guid.NewGuid():N}{archivo.FileType.ToLowerInvariant()}";
+
+                var copia = await archivo.CopyAsync(
+                    carpetaImagenes,
+                    nombreUnico,
+                    Windows.Storage.NameCollisionOption.GenerateUniqueName);
+
+                // Si ya había elegido otra imagen sin guardar, borra esa copia.
+                BorrarCopiaAnterior();
+
+                _imagenSeleccionada = copia.Path;
+            }
+            catch (Exception ex)
+            {
+                await MostrarMensaje(
+                    $"No se pudo cargar la imagen.\n{ex.Message}");
+                return;
+            }
+
             ImagenSeleccionadaTextBlock.Text = archivo.Name;
             ImagenProducto.Source = new BitmapImage(new Uri(_imagenSeleccionada));
             ImagenProducto.Visibility = Visibility.Visible;
+        }
+
+        private void BorrarCopiaAnterior()
+        {
+            if (string.IsNullOrEmpty(_imagenSeleccionada))
+            {
+                return;
+            }
+
+            try
+            {
+                File.Delete(_imagenSeleccionada);
+            }
+            catch
+            {
+                // Si no se puede borrar, no pasa nada: solo queda un archivo de sobra.
+            }
+        }
+
+        private async System.Threading.Tasks.Task<bool> Confirmar(
+            string titulo,
+            string mensaje)
+        {
+            var dialogo = new ContentDialog
+            {
+                Title = titulo,
+                Content = mensaje,
+                PrimaryButtonText = "Guardar de todos modos",
+                CloseButtonText = "Cancelar",
+                DefaultButton = ContentDialogButton.Close,
+                XamlRoot = this.XamlRoot
+            };
+
+            return await dialogo.ShowAsync() == ContentDialogResult.Primary;
         }
 
         private async System.Threading.Tasks.Task MostrarMensaje(

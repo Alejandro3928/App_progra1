@@ -430,6 +430,32 @@ namespace Prueba.Services
             }
 
             return productos;
+
+        }
+
+        /// <summary>
+        /// Indica si ya existe un producto con el mismo nombre, marca y variante.
+        /// </summary>
+        public bool ExisteProducto(string nombre, string marca, string variante)
+        {
+            using var conexion =
+                new SqliteConnection(_connectionString);
+
+            conexion.Open();
+
+            const string sql = @"
+        SELECT COUNT(*)
+        FROM Productos
+        WHERE Nombre   = @Nombre   COLLATE NOCASE
+          AND Marca    = @Marca    COLLATE NOCASE
+          AND Variante = @Variante COLLATE NOCASE;";
+
+            using var comando = new SqliteCommand(sql, conexion);
+            comando.Parameters.AddWithValue("@Nombre", nombre);
+            comando.Parameters.AddWithValue("@Marca", marca);
+            comando.Parameters.AddWithValue("@Variante", variante);
+
+            return Convert.ToInt32(comando.ExecuteScalar()) > 0;
         }
     }
 }
