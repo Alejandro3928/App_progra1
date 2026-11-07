@@ -41,10 +41,11 @@ namespace Prueba
         /// Invoked when the application is launched.
         /// </summary>
         /// <param name="args">Details about the launch request and process.</param>
+        public static MainWindow? Ventana { get; private set; }
         protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
         {
-            _window = new MainWindow();
-            _window.Activate();
+            Ventana = new MainWindow();
+            Ventana.Activate();
         }
     }
 }

@@ -28,6 +28,11 @@
                 x:Name="NombreTextBox"
                 PlaceholderText="Ej. Globos metálicos"/>
 
+            <TextBlock Text="Marca"/>
+            <TextBox
+                x:Name="MarcaTextBox"
+                PlaceholderText="Ej. Partyland"/>
+
             <TextBlock Text="Tipo de producto"/>
             <ComboBox
                 x:Name="TipoComboBox"
@@ -63,8 +68,30 @@
             <TextBlock Text="Precio de venta (MXN)"/>
             <TextBox
                 x:Name="PrecioTextBox"
+<<<<<<< HEAD:Prueba/Prueba/views/RegistrarProductoPage.xaml
                 PlaceholderText="Ej. 89.50"
                 InputScope="Number"/>
+=======
+                PlaceholderText="Ej.99.50"/>
+
+            <TextBlock Text="Imagen del producto"/>
+            <Button
+                Content="Seleccionar imagen"
+                Click="SeleccionarImagenButton_Click"
+                HorizontalAlignment="Left"/>
+            <TextBlock
+                x:Name="ImagenSeleccionadaTextBlock"
+                Text="Ninguna imagen seleccionada"
+                TextWrapping="Wrap"/>
+            
+            <Image
+                x:Name="ImagenProducto"
+                Width="200"
+                Height="200"
+                Stretch="UniformToFill"
+                Margin="0,10,0,10"
+                Visibility="Collapsed"/>
+>>>>>>> a365a95cf30d48ed221bde31fbae710c8feaee9e:Prueba/Prueba/Views/RegistrarProductoPage.xaml
 
             <Button
                 Content="Guardar producto"

@@ -14,10 +14,11 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
-    <None Remove="BlankPage1.xaml" />
-    <None Remove="Login.xaml" />
-    <None Remove="Views\iniciopage.xaml" />
+    <None Remove="Views\ActualizarInventario.xaml" />
+    <None Remove="Views\BuscarProducto.xaml" />
+    <None Remove="Views\InicioPage.xaml" />
     <None Remove="Views\RegistrarProductoPage.xaml" />
+    <None Remove="Views\Reportes.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -55,12 +56,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="BlankPage1.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Update="Login.xaml">
+    <Page Update="Views\Login.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
@@ -87,9 +83,21 @@
     <PublishTrimmed Condition="'$(Configuration)' != 'Debug'">True</PublishTrimmed>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Remove="C:\Users\Kendra Cruz\.nuget\packages\microsoft.windowsappsdk.runtime\2.5.1\buildTransitive\..\include\WindowsAppSDK-VersionInfo.cs" />
+    <Page Update="Views\BuscarProducto.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Remove="C:\Users\Kendra Cruz\.nuget\packages\microsoft.windowsappsdk.runtime\2.5.1\buildTransitive\..\include\WindowsAppSDK-VersionInfo.cs" />
+    <Folder Include="Image\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\Reportes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\ActualizarInventario.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
 </Project>

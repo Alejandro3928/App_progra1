@@ -27,8 +27,19 @@ namespace Prueba
         public MainWindow()
         {
             InitializeComponent();
+            LoginFrame.Navigate(typeof(Login), this);   // en vez de ContenidoFrame
+        }
 
+<<<<<<< HEAD
             MainFrame.Navigate(typeof(Login));
+=======
+
+        public void IniciarSesion()
+        {
+            LoginFrame.Visibility = Visibility.Collapsed;
+            MenuPrincipal.Visibility = Visibility.Visible;
+            ContenidoFrame.Navigate(typeof(InicioPage));
+>>>>>>> a365a95cf30d48ed221bde31fbae710c8feaee9e
         }
 
         private void MenuPrincipal_SelectionChanged(
@@ -54,6 +65,7 @@ namespace Prueba
                     break;
 
                 case "Buscar":
+<<<<<<< HEAD
                     MainFrame.Navigate(
                         typeof(InicioPage));
                     break;
@@ -66,7 +78,32 @@ namespace Prueba
                 case "Reportes":
                     MainFrame.Navigate(
                         typeof(InicioPage));
+=======
+                    ContenidoFrame.Navigate(
+                        typeof(BuscarProducto));
                     break;
+
+                case "Actualizar":
+                    ContenidoFrame.Navigate(
+                        typeof(ActualizarInventario));
+                    break;
+
+                case "Reportes":
+                    ContenidoFrame.Navigate(
+                        typeof(Reportes));
+>>>>>>> a365a95cf30d48ed221bde31fbae710c8feaee9e
+                    break;
+            }
+        }
+        public void IrA(string tag)
+        {
+            foreach (var obj in MenuPrincipal.MenuItems)
+            {
+                if (obj is NavigationViewItem item && item.Tag?.ToString() == tag)
+                {
+                    MenuPrincipal.SelectedItem = item;
+                    break;
+                }
             }
         }
     }
