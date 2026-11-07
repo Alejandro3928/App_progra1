@@ -28,7 +28,7 @@ namespace Prueba
         {
             InitializeComponent();
 
-            ContenidoFrame.Navigate(typeof(Login));
+            MainFrame.Navigate(typeof(Login));
         }
 
         private void MenuPrincipal_SelectionChanged(
@@ -44,27 +44,27 @@ namespace Prueba
             switch (item.Tag?.ToString())
             {
                 case "Inicio":
-                    ContenidoFrame.Navigate(
+                    MainFrame.Navigate(
                         typeof(InicioPage));
                     break;
 
                 case "Registrar":
-                    ContenidoFrame.Navigate(
+                    MainFrame.Navigate(
                         typeof(RegistrarProductoPage));
                     break;
 
                 case "Buscar":
-                    ContenidoFrame.Navigate(
+                    MainFrame.Navigate(
                         typeof(InicioPage));
                     break;
 
                 case "Actualizar":
-                    ContenidoFrame.Navigate(
+                    MainFrame.Navigate(
                         typeof(InicioPage));
                     break;
 
                 case "Reportes":
-                    ContenidoFrame.Navigate(
+                    MainFrame.Navigate(
                         typeof(InicioPage));
                     break;
             }

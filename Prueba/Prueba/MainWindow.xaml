@@ -67,7 +67,7 @@
                     Margin="8,8,0,8"/>
             </NavigationView.Header>
 
-            <Frame x:Name="ContenidoFrame"/>
+            <Frame x:Name="MainFrame"/>
         </NavigationView>
     </Grid>
 </Window>

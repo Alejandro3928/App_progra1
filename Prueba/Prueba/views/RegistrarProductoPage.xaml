@@ -64,7 +64,7 @@
             <TextBox
                 x:Name="PrecioTextBox"
                 PlaceholderText="Ej. 89.50"
-                InputScope="Decimal"/>
+                InputScope="Number"/>
 
             <Button
                 Content="Guardar producto"
