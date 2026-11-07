@@ -68,11 +68,9 @@
             <TextBlock Text="Precio de venta (MXN)"/>
             <TextBox
                 x:Name="PrecioTextBox"
-<<<<<<< HEAD:Prueba/Prueba/views/RegistrarProductoPage.xaml
                 PlaceholderText="Ej. 89.50"
                 InputScope="Number"/>
-=======
-                PlaceholderText="Ej.99.50"/>
+
 
             <TextBlock Text="Imagen del producto"/>
             <Button
@@ -91,8 +89,6 @@
                 Stretch="UniformToFill"
                 Margin="0,10,0,10"
                 Visibility="Collapsed"/>
->>>>>>> a365a95cf30d48ed221bde31fbae710c8feaee9e:Prueba/Prueba/Views/RegistrarProductoPage.xaml
-
             <Button
                 Content="Guardar producto"
                 Background="#7956A8"
