@@ -33,6 +33,7 @@
                 x:Name="MarcaTextBox"
                 PlaceholderText="Ej. Partyland"/>
 
+            
             <TextBlock Text="Tipo de producto"/>
             <ComboBox
                 x:Name="TipoComboBox"

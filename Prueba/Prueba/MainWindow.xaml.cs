@@ -73,6 +73,12 @@ namespace Prueba
                     MainFrame.Navigate(
                         typeof(Reportes));
                     break;
+
+                case "Globby":
+                    MainFrame.Navigate(
+                        typeof(GlobbyChat));
+                    break;
+
             }
         }
 

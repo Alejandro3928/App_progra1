@@ -16,6 +16,7 @@
   <ItemGroup>
     <None Remove="Views\ActualizarInventario.xaml" />
     <None Remove="Views\BuscarProducto.xaml" />
+    <None Remove="Views\GlobbyChat.xaml" />
     <None Remove="Views\InicioPage.xaml" />
     <None Remove="Views\RegistrarProductoPage.xaml" />
     <None Remove="Views\Reportes.xaml" />
@@ -89,6 +90,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Image\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\GlobbyChat.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Views\Reportes.xaml">

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="Prueba.Views.GlobbyChat"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Prueba.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <ScrollViewer>
+        <StackPanel
+            Padding="28"
+            Spacing="14"
+            MaxWidth="760"
+            HorizontalAlignment="Left">
+            <TextBlock
+                Text="Globby Chat"
+                FontSize="30"
+                FontWeight="Bold"
+                Foreground="#49366B"/>
+            <TextBlock
+                Text="Bienvenido a Globby Chat, la plataforma de chat para tu aplicación de inventario."
+                FontSize="15"
+                TextWrapping="Wrap"/>
+        </StackPanel>
+    </ScrollViewer>
+
+</Page>

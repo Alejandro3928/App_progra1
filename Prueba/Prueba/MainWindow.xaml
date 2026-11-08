@@ -60,7 +60,15 @@
                 <SymbolIcon Symbol="Document"/>
             </NavigationViewItem.Icon>
         </NavigationViewItem>
-            </NavigationView.MenuItems>
+                
+         <NavigationViewItem
+             Content="Globby"
+             Tag="Globby">
+             <NavigationViewItem.Icon>
+                  <SymbolIcon Symbol="Message"/>
+              </NavigationViewItem.Icon>
+          </NavigationViewItem>
+        </NavigationView.MenuItems>
 
             <NavigationView.Header>
                 <TextBlock
