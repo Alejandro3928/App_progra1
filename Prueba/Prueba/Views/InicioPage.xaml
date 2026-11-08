@@ -117,7 +117,6 @@
                                 Foreground="#8C3F67"/>
                         </StackPanel>
                     </Border>
-
                 </Grid>
 
                 <Border
@@ -200,12 +199,6 @@
                 </StackPanel>
             </Border>
 
-            <Border
-                x:Name="Globby"
-                Tapped="Globby_Tapped"
-                Background="White"
-                CornerRadius="12"
-                Padding="22"/>
         </StackPanel>
     </ScrollViewer>
 </Page>

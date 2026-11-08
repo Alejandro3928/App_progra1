@@ -40,16 +40,6 @@ namespace Prueba
             string nombreUsuario = UsuarioTextBox.Text.Trim();
             string contrasena = PasswordBox.Password;
 
-            if ((nombreUsuario == "admin" && contrasena == "admin")
-                || _usuarioService.Validar(nombreUsuario, contrasena))
-            {
-                MensajeError.Text = string.Empty;
-                _ventana?.IniciarSesion();
-            }
-            else
-            {
-                MensajeError.Text = "Usuario o contraseña incorrectos.";
-            }
         }
 
         private void CrearCuentaButton_Click(object sender, RoutedEventArgs e)

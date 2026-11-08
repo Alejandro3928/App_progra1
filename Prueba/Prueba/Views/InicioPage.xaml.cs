@@ -95,13 +95,5 @@ namespace Prueba.Views
         {
             App.Ventana?.IrA("Reportes");
         }
-
-        private void Globby_Tapped(
-            object sender, 
-            TappedRoutedEventArgs e)
-        {
-            App.Ventana?.IrA("Globby");
-        }
     }
-
 }
