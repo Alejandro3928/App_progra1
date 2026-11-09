@@ -267,8 +267,6 @@ namespace Prueba.Services
 
             using var transaccion = conexion.BeginTransaction();
 
-            // La condición "InventarioActual + @Cambio >= 0" evita
-            // que una salida deje las existencias en negativo.
             const string sqlActualizar = @"
                 UPDATE Productos
                 SET InventarioActual = InventarioActual + @Cambio

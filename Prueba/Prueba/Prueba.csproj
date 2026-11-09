@@ -89,9 +89,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Image\" />
-  </ItemGroup>
-  <ItemGroup>
     <Page Update="Views\GlobbyChat.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>

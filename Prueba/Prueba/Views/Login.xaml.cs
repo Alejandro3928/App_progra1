@@ -40,6 +40,32 @@ namespace Prueba
             string nombreUsuario = UsuarioTextBox.Text.Trim();
             string contrasena = PasswordBox.Password;
 
+            if (string.IsNullOrWhiteSpace(nombreUsuario)
+                || string.IsNullOrWhiteSpace(contrasena))
+            {
+                MensajeError.Text = "Escribe tu usuario y contraseña.";
+                return;
+            }
+
+            try
+            {
+                bool credencialesValidas =
+                    nombreUsuario == "admin" && contrasena == "admin"
+                    || _usuarioService.Validar(nombreUsuario, contrasena);
+
+                if (!credencialesValidas)
+                {
+                    MensajeError.Text = "Usuario o contraseña incorrectos.";
+                    return;
+                }
+
+                MensajeError.Text = string.Empty;
+                _ventana?.IniciarSesion();
+            }
+            catch (Exception ex)
+            {
+                MensajeError.Text = $"No se pudo iniciar sesión: {ex.Message}";
+            }
         }
 
         private void CrearCuentaButton_Click(object sender, RoutedEventArgs e)
