@@ -10,8 +10,35 @@
             <ResourceDictionary.MergedDictionaries>
                 <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
             </ResourceDictionary.MergedDictionaries>
-
-            <SolidColorBrush x:Key="ApplicationPageBackgroundThemeBrush" Color="#F5EEFB"/>
+            <SolidColorBrush x:Key="AzulMarino" Color="#172B4D"/>
+            <SolidColorBrush x:Key="AzulPetroleo" Color="#247B8A"/>
+            <SolidColorBrush x:Key="Turquesa" Color="#35B8A6"/>
+            <SolidColorBrush x:Key="AzulVivo" Color="#55A7F3"/>
+            <SolidColorBrush x:Key="Naranja" Color="#FFB84D"/>
+            <SolidColorBrush x:Key="Coral" Color="#F17878"/>
+            <SolidColorBrush x:Key="FondoPrincipal" Color="#F4F7FA"/>
+            <SolidColorBrush x:Key="FondoTarjeta" Color="#FFFFFF"/>
+            <SolidColorBrush x:Key="TextoPrincipal" Color="#263445"/>
+            <SolidColorBrush x:Key="TextoSecundario" Color="#718096"/>
+            <SolidColorBrush x:Key="NavigationViewDefaultPaneBackground"
+                 Color="#172B4D"/>
+            <SolidColorBrush x:Key="NavigationViewExpandedPaneBackground"
+                 Color="#172B4D"/>
+            <SolidColorBrush
+            x:Key="ApplicationPageBackgroundThemeBrush"
+            Color="#F4F7FA"/>
+            <SolidColorBrush x:Key="NavigationViewItemForeground"
+                 Color="#FFFFFF"/>
+            <SolidColorBrush x:Key="NavigationViewItemForegroundPointerOver"
+                 Color="#FFFFFF"/>
+            <SolidColorBrush x:Key="NavigationViewItemForegroundSelected"
+                 Color="#FFFFFF"/>
+            <SolidColorBrush x:Key="NavigationViewItemForegroundPressed"
+                 Color="#FFFFFF"/>
+            <SolidColorBrush x:Key="NavigationViewItemBackgroundSelected"
+                 Color="#247B8A"/>
+            <SolidColorBrush x:Key="NavigationViewItemBackgroundPointerOver"
+                 Color="#29466D"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

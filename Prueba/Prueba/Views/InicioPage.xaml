@@ -10,10 +10,10 @@
         <StackPanel Padding="32" Spacing="20">
 
             <TextBlock
-                Text="¡Bienvenido a Fiesta!"
+                Text="¡Bienvenido a Little´s Party!"
                 FontSize="30"
                 FontWeight="Bold"
-                Foreground="#49366B"/>
+                Foreground="{StaticResource AzulMarino}"/>
 
             <TextBlock
                 Text="Administra los artículos para fiestas"
@@ -29,48 +29,48 @@
                 <Border
                     Grid.Column="0"
                     Tapped="RegistrarProductoBorder_Tapped"
-                    Background="#E9DDF7"
+                    Background="{StaticResource FondoTarjeta}"
                     CornerRadius="12"
                     Padding="20">
                     <StackPanel Spacing="10">
                         <FontIcon
                             Glyph="&#xE710;"
                             FontSize="28"
-                            Foreground="#49366B"/>
+                            Foreground="{StaticResource AzulMarino}"/>
                         <TextBlock
                             Text="Registrar productos"
                             FontSize="19"
                             FontWeight="SemiBold"
-                            Foreground="#49366B"
+                            Foreground="{StaticResource AzulMarino}"
                             TextWrapping="Wrap"/>
                         <TextBlock
                             Text="Agrega nuevos artículos al inventario."
                             TextWrapping="Wrap"
-                            Foreground="#49366B"/>
+                            Foreground="{StaticResource AzulMarino}"/>
                     </StackPanel>
                 </Border>
 
                 <Border
                     Grid.Column="1"
                     Tapped="ExistenciasCard_Tapped"
-                    Background="#FBE3EE"
+                    Background="{StaticResource FondoTarjeta}"
                     CornerRadius="12"
                     Padding="20">
                     <StackPanel Spacing="10">
                         <FontIcon
                             Glyph="&#xE721;"
                             FontSize="28"
-                            Foreground="#8C3F67"/>
+                            Foreground="{StaticResource AzulMarino}"/>
                         <TextBlock
                             Text="Control de existencias"
                             FontSize="19"
                             FontWeight="SemiBold"
-                            Foreground="#8C3F67"
+                            Foreground="{StaticResource AzulMarino}"
                             TextWrapping="Wrap"/>
                         <TextBlock
                             Text="Consulta y actualiza las piezas disponibles."
                             TextWrapping="Wrap"
-                            Foreground="#8C3F67"/>
+                            Foreground="{StaticResource AzulMarino}"/>
                     </StackPanel>
                 </Border>
             </Grid>
@@ -85,36 +85,36 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <Border Grid.Column="0" Background="White" CornerRadius="12" Padding="18">
+                    <Border Grid.Column="0" Background="{StaticResource FondoTarjeta}" CornerRadius="12" Padding="18">
                         <StackPanel Spacing="4">
-                            <TextBlock Text="Productos registrados" Foreground="#6B5B80"/>
+                            <TextBlock Text="Productos registrados" Foreground="{StaticResource AzulMarino}"/>
                             <TextBlock
                                 x:Name="TotalProductosTextBlock"
                                 FontSize="28"
                                 FontWeight="Bold"
-                                Foreground="#49366B"/>
+                                Foreground="{StaticResource AzulMarino}"/>
                         </StackPanel>
                     </Border>
 
-                    <Border Grid.Column="1" Background="White" CornerRadius="12" Padding="18">
+                    <Border Grid.Column="1" Background="{StaticResource FondoTarjeta}" CornerRadius="12" Padding="18">
                         <StackPanel Spacing="4">
-                            <TextBlock Text="Piezas en existencia" Foreground="#6B5B80"/>
+                            <TextBlock Text="Piezas en existencia" Foreground="{StaticResource AzulMarino}"/>
                             <TextBlock
                                 x:Name="TotalPiezasTextBlock"
                                 FontSize="28"
                                 FontWeight="Bold"
-                                Foreground="#49366B"/>
+                                Foreground="{StaticResource AzulMarino}"/>
                         </StackPanel>
                     </Border>
 
-                    <Border Grid.Column="2" Background="White" CornerRadius="12" Padding="18">
+                    <Border Grid.Column="2" Background="{StaticResource FondoTarjeta}" CornerRadius="12" Padding="18">
                         <StackPanel Spacing="4">
-                            <TextBlock Text="Con poco stock (5 o menos)" Foreground="#6B5B80"/>
+                            <TextBlock Text="Con poco stock (5 o menos)" Foreground="{StaticResource AzulMarino}"/>
                             <TextBlock
                                 x:Name="PocoStockCountTextBlock"
                                 FontSize="28"
                                 FontWeight="Bold"
-                                Foreground="#8C3F67"/>
+                                Foreground="{StaticResource AzulMarino}"/>
                         </StackPanel>
                     </Border>
                 </Grid>
@@ -122,7 +122,7 @@
                 <Border
                     x:Name="ReponerBorder"
                     Tapped="ReponerBorder_Tapped"
-                    Background="White"
+                    Background="{StaticResource FondoTarjeta}"
                     CornerRadius="12"
                     Padding="22"
                     Visibility="Collapsed">
@@ -131,7 +131,7 @@
                             Text="Necesitan reposición"
                             FontSize="20"
                             FontWeight="SemiBold"
-                            Foreground="#49366B"/>
+                            Foreground="{StaticResource AzulMarino}"/>
 
                         <ItemsControl x:Name="ReponerItemsControl">
                             <ItemsControl.ItemTemplate>
@@ -161,16 +161,15 @@
                             x:Name="VerMasTextBlock"
                             Text="Toca aquí para ver el reporte completo."
                             FontSize="12"
-                            Foreground="#6B5B80"
+                            Foreground="{StaticResource AzulMarino}"
                             Margin="0,6,0,0"/>
                     </StackPanel>
                 </Border>
             </StackPanel>
 
-            <!-- PRIMEROS PASOS (solo se ve mientras no hay productos) -->
             <Border
                 x:Name="PrimerosPasosBorder"
-                Background="White"
+                Background="{StaticResource FondoTarjeta}"
                 CornerRadius="12"
                 Padding="22">
                 <StackPanel Spacing="8">
@@ -178,7 +177,7 @@
                         Text="Primeros pasos"
                         FontSize="20"
                         FontWeight="SemiBold"
-                        Foreground="#49366B"/>
+                        Foreground="{StaticResource AzulMarino}"/>
 
                     <TextBlock
                         Text="1. Entra a Registrar producto."
