@@ -24,7 +24,6 @@
             FontWeight="Bold"
             Foreground="#49366B"/>
 
-        <!-- COLUMNA IZQUIERDA: buscar y elegir producto -->
         <Grid Grid.Row="1" Grid.Column="0" RowSpacing="10">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -94,7 +93,6 @@
             </ListView>
         </Grid>
 
-        <!-- COLUMNA DERECHA: registrar movimiento e historial -->
         <Border
             Grid.Row="1"
             Grid.Column="1"

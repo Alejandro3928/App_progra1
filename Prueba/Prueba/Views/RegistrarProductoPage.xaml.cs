@@ -100,7 +100,6 @@ namespace Prueba.Views
 
             if (!precioValido)
             {
-                // Permite también escribir decimales con punto.
                 precioValido = decimal.TryParse(
                     textoPrecio,
                     NumberStyles.Number,
@@ -184,8 +183,6 @@ namespace Prueba.Views
 
             try
             {
-                // Copia la imagen a la carpeta de datos de la app, para que
-                // el producto no la pierda si el archivo original se mueve o se borra.
                 var carpetaImagenes = await Windows.Storage.ApplicationData.Current
                     .LocalFolder.CreateFolderAsync(
                         "Imagenes",
@@ -199,7 +196,6 @@ namespace Prueba.Views
                     nombreUnico,
                     Windows.Storage.NameCollisionOption.GenerateUniqueName);
 
-                // Si ya había elegido otra imagen sin guardar, borra esa copia.
                 BorrarCopiaAnterior();
 
                 _imagenSeleccionada = copia.Path;
@@ -229,7 +225,6 @@ namespace Prueba.Views
             }
             catch
             {
-                // Si no se puede borrar, no pasa nada: solo queda un archivo de sobra.
             }
         }
 

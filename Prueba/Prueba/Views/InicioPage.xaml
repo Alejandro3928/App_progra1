@@ -75,7 +75,6 @@
                 </Border>
             </Grid>
 
-            <!-- RESUMEN (solo se ve cuando ya hay productos) -->
             <StackPanel x:Name="ResumenPanel" Spacing="16" Visibility="Collapsed">
 
                 <Grid ColumnSpacing="14">

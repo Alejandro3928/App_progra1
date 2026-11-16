@@ -14,7 +14,6 @@ namespace Prueba.Models
        public int Cantidad { get; set; }
        public string Motivo { get; set; } = string.Empty;
        public DateTime Fecha { get; set; }
-            // Propiedades solo para mostrar en pantalla (no se guardan en la base de datos).
        public string CantidadTexto =>
             Tipo == "Entrada" ? $"+{Cantidad}" : $"-{Cantidad}";
        public string MotivoTexto =>

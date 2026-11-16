@@ -13,10 +13,8 @@ namespace Prueba.Views
     {
         private readonly ProductoService _productoService = new();
 
-        // Producto que está seleccionado (se conserva al recargar la lista).
         private int? _productoId;
 
-        // Evita reaccionar a los cambios de selección hechos por el propio código.
         private bool _cargando;
 
         public ActualizarInventario()
@@ -47,7 +45,6 @@ namespace Prueba.Views
                     ? "1 producto"
                     : $"{productos.Count} productos";
 
-                // Vuelve a seleccionar el mismo producto, ya con los datos nuevos.
                 var actual = productos.FirstOrDefault(p => p.Id == _productoId);
                 ProductosListView.SelectedItem = actual;
 
@@ -77,7 +74,6 @@ namespace Prueba.Views
 
             _productoId = producto?.Id;
 
-            // Al elegir otro producto se limpia el formulario.
             CantidadNumberBox.Value = double.NaN;
             MotivoTextBox.Text = string.Empty;
             MensajeTextBlock.Text = string.Empty;
@@ -144,7 +140,6 @@ namespace Prueba.Views
             }
             catch (InvalidOperationException ex)
             {
-                // Por ejemplo, una salida mayor a las existencias.
                 MostrarMensaje(ex.Message, true);
                 return;
             }
@@ -158,7 +153,6 @@ namespace Prueba.Views
             CantidadNumberBox.Value = double.NaN;
             MotivoTextBox.Text = string.Empty;
 
-            // Recarga la lista para ver las existencias nuevas y el historial.
             CargarProductos(BusquedaTextBox.Text.Trim());
 
             MostrarMensaje(

@@ -47,7 +47,6 @@ namespace Prueba.Views
             }
         }
 
-        // BOTÓN ELIMINAR
         private async void EliminarProducto_Click(object sender, RoutedEventArgs e)
         {
             if (sender is not Button boton || boton.DataContext is not Producto producto)
@@ -117,7 +116,6 @@ namespace Prueba.Views
             }
         }
 
-        // BOTÓN EDITAR
         private async void EditarProducto_Click(
             object sender,
             RoutedEventArgs e)
@@ -218,7 +216,6 @@ namespace Prueba.Views
                 XamlRoot = this.XamlRoot
             };
 
-            // Valida antes de cerrar: si hay un error, el cuadro se queda abierto.
             dialogo.PrimaryButtonClick += (s, args) =>
             {
                 if (string.IsNullOrWhiteSpace(nombreBox.Text))
@@ -262,8 +259,6 @@ namespace Prueba.Views
                 return;
             }
 
-            // Pasa los valores nuevos al producto (la imagen y el inventario
-            // inicial se conservan como estaban).
             producto.Nombre = nombreBox.Text.Trim();
             producto.Marca = marcaBox.Text.Trim();
             producto.Tipo = (string)tipoCombo.SelectedItem;
@@ -290,7 +285,6 @@ namespace Prueba.Views
                 await error.ShowAsync();
             }
 
-            // Vuelve a leer la lista desde la base de datos para mostrar los cambios.
             CargarProductos(BusquedaTextBox.Text.Trim());
 
         }

@@ -10,7 +10,6 @@ namespace Prueba.Views
 {
     public sealed partial class InicioPage : Page
     {
-        // Mismo límite que trae por defecto la página de Reportes.
         private const int LimitePocoStock = 5;
 
         private readonly ProductoService _productoService = new();
@@ -60,7 +59,6 @@ namespace Prueba.Views
                 PocoStockCountTextBlock.Text =
                     pocoStock.Count.ToString("N0", cultura);
 
-                // Muestra solo los 5 más urgentes.
                 ReponerItemsControl.ItemsSource = pocoStock.Take(5).ToList();
 
                 ReponerBorder.Visibility = pocoStock.Count == 0
@@ -69,7 +67,6 @@ namespace Prueba.Views
             }
             catch (Exception)
             {
-                // Si no se pueden leer los datos, se deja la pantalla de primeros pasos.
                 ResumenPanel.Visibility = Visibility.Collapsed;
                 PrimerosPasosBorder.Visibility = Visibility.Visible;
             }

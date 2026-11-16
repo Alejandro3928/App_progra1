@@ -51,9 +51,6 @@ namespace Prueba.Models
                 }
             }
         }
-
-        // Propiedades solo para mostrar en pantalla (no se guardan en la base de datos).
-
         public string PrecioTexto =>
             Precio.ToString("C2", CultureInfo.GetCultureInfo("es-MX"));
 
